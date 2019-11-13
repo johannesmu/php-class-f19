@@ -32,15 +32,9 @@ CREATE TABLE `category` (
   `category_id` int(11) NOT NULL,
   `category_name` varchar(32) NOT NULL,
   `category_description` varchar(128) NOT NULL,
-<<<<<<< HEAD
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `created` timestamp NULL DEFAULT NULL,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-=======
-  `active` tinyint(1) NOT NULL DEFAULT 1,
-  `created` timestamp NULL DEFAULT NULL,
-  `updated` timestamp NOT NULL DEFAULT current_timestamp()
->>>>>>> fd2b4cec4ad976e60e00e3f38b9c827b8863d66f
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
