@@ -14,8 +14,9 @@
         {% for item in products %}
           <div class="col-md-3">
             <h3>{{item.name}}</h3>
+            <img class="img-fluid" src="images/products/{{item.image}}">
             <h5>{{item.price}}</h5>
-            <p>{{item.description}}</p>
+            <p>{{item.description | slice(0,100) ~ '...' }}</p>
           </div>
         {% endfor %}
       </div>
