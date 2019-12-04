@@ -2,6 +2,9 @@
 require('vendor/autoload.php');
 
 use oldspice\ProductDetail;
+use oldspice\Navigation;
+
+$navigation = Navigation::getNavigation();
 
 if( $_SERVER['REQUEST_METHOD'] == "GET" && isset($_GET['product_id']) ) {
   $product_id = $_GET['product_id'];
@@ -19,6 +22,7 @@ $twig = new Twig_Environment( $loader );
 $template = $twig -> load( 'detail.twig' );
 //output the template to page
 echo $template -> render([
+  'navigation' => $navigation,
   'detail' => $detail,
   'title' => 'Detail for ' . $detail['product']['name']
 ]);
