@@ -14,7 +14,7 @@
             {% endif %}
             <div class="form-group">
               <label for="email">Email address</label>
-              <input id="email" type="email" class="form-control {{emailInvalid}}" name="email" placeholder="you@domain.com">
+              <input id="email" value="{{email}}" type="email" class="form-control {{emailInvalid}}" name="email" placeholder="you@domain.com">
               <div class="invalid-feedback">{{emailErrorMessage}}</div>
             </div>
             {% if register.errors.password %}

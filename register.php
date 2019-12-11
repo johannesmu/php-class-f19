@@ -15,6 +15,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 }
 else{
   $register = '';
+  $email = '';
 }
 
 //Twig
@@ -26,6 +27,7 @@ $template = $twig -> load( 'register.twig' );
 echo $template -> render([
   'navigation' => $navigation,
   'register' => $register,
+  'email' => $email,
   'title' => 'Register for a free account'
 ]);
 
