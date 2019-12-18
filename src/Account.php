@@ -85,6 +85,54 @@ class Account extends Database {
     return bin2hex( $bytes );
   }
 
+  public function login( $email, $password ) {
+    $errors = array();
+    $response = array();
+
+    $query = "
+    SELECT account_id, email, password
+    FROM account
+    WHERE active = 1 AND email = ?
+    ";
+
+    $statement = $this -> connection -> prepare( $query );
+    $statement -> bind_param( 's' , $email );
+
+    try {
+      if ( $statement -> execute() == false ) {
+        throw new Exception('error executing query');
+      }
+    }
+    catch( Exception $exc ) {
+      $errors['database'] = $exc -> getMessage();
+      $response['success'] = false;
+      $response['errors'] = $errors;
+      return $response;
+    }
+
+    $result = $statement -> get_result();
+
+    try {
+      if( $result -> num_rows == 0 ) {
+        throw new Exception('account does not exist');
+      }
+    }
+    catch( Exception $exc ) {
+      $errors['account'] = $exc -> getMessage();
+      $response['success'] = false;
+      $response['errors'] = $errors;
+      return $response;
+    }
+
+    $account = $result -> fetch_assoc();
+
+    try {
+      if ( password_verify( $password, $account['password']) == false ) {
+        throw new Exception('credentials supplied do not match our records');
+      }
+    }
+  }
+
 }
 
 ?>
