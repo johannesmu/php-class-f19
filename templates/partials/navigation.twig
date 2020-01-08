@@ -7,6 +7,16 @@
     <input type="search" name="query" placeholder="Search our catalogue" class="form-control" value="">
     <button type="submit" class="btn btn-primary">Search</button>
   </form>
+  <nav class="d-flex">
+    <a href="wishlist.php" class="btn text-light">
+      <i class="fas fa-heart"></i>
+      <span class="badge badge-primary">0</span>
+    </a>
+    <a href="shopping-cart.php" class="btn text-light">
+      <i class="fas fa-shopping-cart"></i>
+      <span class="badge badge-primary">0</span>
+    </a>
+  </nav>
   <div class="collapse navbar-collapse" id="main-nav">
     <nav class="nav navbar-nav ml-auto">
       {% for item in navigation %}

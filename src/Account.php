@@ -130,9 +130,23 @@ class Account extends Database {
       if ( password_verify( $password, $account['password']) == false ) {
         throw new Exception('credentials supplied do not match our records');
       }
+      else {
+        $response['success'] = true;
+        // check if session has not started
+        if( session_status() == PHP_SESSION_NONE ) {
+          session_start();
+        }
+        $_SESSION['auth'] = $account['account_id'];
+        return $response;
+      }
+    }
+    catch( Exception $exc ) {
+      $errors['account'] = $exc -> getMessage();
+      $response['success'] = false;
+      $response['errors'] = $errors;
+      return $response;
     }
   }
-
 }
 
 ?>
