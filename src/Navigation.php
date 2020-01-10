@@ -17,18 +17,26 @@ class Navigation {
   );
 
   public static function getNavigation() {
+    // create navigation array
+    $navigation = array();
+    $navigation["active"] = basename( $_SERVER['PHP_SELF'] );
+    
     //check if session is not enabled
+    
     if( session_status() == PHP_SESSION_NONE ) {
       //if not enabled, enable it
       session_start();
     }
     if( isset($_SESSION['auth']) ) {
-      return self::$auth_items;
+      $navigation['items'] = self::$auth_items;
     }
     else{
-      return self::$nav_items;
+      $navigation['items'] = self::$nav_items;
     }
+    return $navigation;
   }
+
+  
 }
 
 ?>
