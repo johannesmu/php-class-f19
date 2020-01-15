@@ -3,18 +3,30 @@
   {% include 'partials/head.twig' %}
   <body>
     {% include 'partials/navigation.twig' %}
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
-        {% for item in products %}
-          <div class="col-md-3">
-            <h4 class="text-capitalize" style="min-height:4rem;">{{item.name}}</h4>
-            <a href="detail.php?product_id={{item.product_id}}">
-              <img class="img-fluid" src="images/products/{{item.image}}">
-            </a>
-            <h5>{{item.price}}</h5>
-            <p>{{item.description | slice(0,100) ~ '...' }}</p>
+        <div class="col-md-2">
+          {% include 'partials/categories.twig' %}
+        </div>
+        <div class="col-md-10">
+          <div class="row">
+            <div class="col">
+              <p>Total of {{products.total}} products</p>
+            </div>
           </div>
-        {% endfor %}
+          <div class="row">
+            {% for item in products.items %}
+              <div class="col-md-3">
+                <h4 class="text-capitalize" style="min-height:4rem;">{{item.name}}</h4>
+                <a href="detail.php?product_id={{item.product_id}}">
+                  <img class="img-fluid" src="images/products/{{item.image}}">
+                </a>
+                <h5>{{item.price}}</h5>
+                <p>{{item.description | slice(0,100) ~ '...' }}</p>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
       </div>
     </div>
     {% include 'partials/footer.twig' %}
