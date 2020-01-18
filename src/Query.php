@@ -24,7 +24,7 @@ class Query extends Database {
     $lower_query = trim( $lower_query );
     // loop through all allowed query types to find a match
     foreach( $lower_query as $type ) {
-
+      if( strpos($lower_query, $type ) === 0 )
     }
   }
 
