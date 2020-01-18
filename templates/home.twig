@@ -11,7 +11,17 @@
         <div class="col-md-10">
           <div class="row">
             <div class="col">
-              <p>Total of {{products.total}} products</p>
+              {% if (categories.active) %}
+                {% set name = '' %}
+                {% for cat in categories.items %}
+                  {% if cat.category_id == categories.active %}
+                    {% set name = cat.category_name %}
+                  {% endif %}
+                {% endfor %}
+              {% else %}
+                {% set name = 'all categories' %}
+              {% endif %}
+              <p>Total of {{products.total}} products in <strong class="text-capitalize">{{name}}</strong></p>
             </div>
           </div>
           <div class="row">
