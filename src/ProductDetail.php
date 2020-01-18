@@ -11,10 +11,11 @@ class ProductDetail extends Product {
   public function getDetail( $product_id ) {
     $query = "
     SELECT 
-    product_id,
+    @pid := product_id,
     name,
     description,
-    price
+    price,
+    ( SELECT quantity FROM product_quantity WHERE product_id=@pid ) as quantity
     FROM product
     WHERE product_id = ?
     ";
