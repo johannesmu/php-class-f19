@@ -21,7 +21,7 @@
                 <a href="detail.php?product_id={{item.product_id}}">
                   <img class="img-fluid" src="images/products/{{item.image}}">
                 </a>
-                <h5>{{item.price}}</h5>
+                <h5 class="price">{{item.price}}</h5>
                 <p>{{item.description | slice(0,100) ~ '...' }}</p>
               </div>
             {% endfor %}
