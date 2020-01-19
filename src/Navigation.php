@@ -1,6 +1,8 @@
 <?php
 namespace oldspice;
 
+use oldspice\Session;
+
 class Navigation {
   private static $nav_items = array(
     array('name' => 'Home', 'link' => 'index.php'),
@@ -19,15 +21,11 @@ class Navigation {
   public static function getNavigation() {
     // create navigation array
     $navigation = array();
+    // find the active navigation item (for highlight in navbar )
     $navigation["active"] = basename( $_SERVER['PHP_SELF'] );
-    
-    //check if session is not enabled
-    
-    if( session_status() == PHP_SESSION_NONE ) {
-      //if not enabled, enable it
-      session_start();
-    }
-    if( isset($_SESSION['auth']) ) {
+
+    // updated to use Session class
+    if ( Session::get('auth') ) {
       $navigation['items'] = self::$auth_items;
     }
     else{

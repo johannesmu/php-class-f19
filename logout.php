@@ -1,8 +1,11 @@
 <?php
-session_start();
+require('vendor/autoload.php');
 
-//unset auth variable
-unset( $_SESSION['auth'] );
+use oldspice\Session;
+
+Session::unset('auth');
+Session::emptyAll();
+
 
 //redirect user to home page
 header('location: index.php');

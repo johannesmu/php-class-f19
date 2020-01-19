@@ -4,9 +4,10 @@ namespace oldspice;
 
 class Session {
   // method to initialise session
+  // static class does not need to be constructed, and it calls its methods using self::method()
   public static function init() {
     // check if session is initialised
-    if( session_status() == 'PHP_SESSION_NONE' ) {
+    if( session_status() == PHP_SESSION_NONE ) {
       session_start();
     }
   }
@@ -31,6 +32,13 @@ class Session {
   public static function unset( $name ) {
     self::init();
     unset( $_SESSION[$name] );
+  }
+
+  public static function emptyAll() {
+    self::init();
+    foreach( $_SESSION as $var => $value ) {
+      unset( $_SESSION[$var] );
+    }
   }
 }
 ?>

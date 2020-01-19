@@ -3,6 +3,7 @@
 namespace oldspice;
 
 use oldspice\Database;
+use oldspice\Session;
 use \Exception;
 
 class Account extends Database {
@@ -66,11 +67,10 @@ class Account extends Database {
       return $response;
     }
     // no errors, registration successful
-    // create user session
-    if( session_status() == PHP_SESSION_NONE ) {
-      session_start();
-    }
-    $_SESSION['auth'] = $account_id;
+    // // create user session
+    // use Session class
+
+    Session::set('auth', $account_id );
     $response['success'] = true;
     return $response;
   }
@@ -85,12 +85,15 @@ class Account extends Database {
     return bin2hex( $bytes );
   }
 
+  // login method
   public function login( $email, $password ) {
     $errors = array();
     $response = array();
 
     $query = "
-    SELECT account_id, email, password
+    SELECT HEX( account_id ) as account_id, 
+    email, 
+    password
     FROM account
     WHERE active = 1 AND email = ?
     ";
@@ -125,18 +128,14 @@ class Account extends Database {
     }
 
     $account = $result -> fetch_assoc();
-
+    print_r( $account );
     try {
       if ( password_verify( $password, $account['password']) == false ) {
         throw new Exception('credentials supplied do not match our records');
       }
       else {
         $response['success'] = true;
-        // check if session has not started
-        if( session_status() == PHP_SESSION_NONE ) {
-          session_start();
-        }
-        $_SESSION['auth'] = $account['account_id'];
+        Session::set('auth', $account['account_id'] );
         return $response;
       }
     }
