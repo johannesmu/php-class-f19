@@ -27,31 +27,33 @@
           <h3 class="text-capitalize">{{detail.product.name}}</h3>
           <h5 class="price">{{detail.product.price}}</h5>
           <p>{{detail.product.description}}</p>
-          <form class="form-inline">
+          <p class="text-success">{{detail.product.quantity}} available</p>
+          <form class="form-inline" id="shopping-form" method="get" action="detail.php">
+            <input type="hidden" name="product_id" value="{{detail.product.product_id}}">
             <div class="form-row flex-fill">
               <div class="col-4">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <button type="button" class="btn btn-primary">
+                    <button id="minus" type="button" class="btn btn-primary">
                       <i class="fas fa-minus"></i>
                     </button>
                   </div>
-                  <input type="text" class="form-control" value="1" min="1">
+                  <input id="quantity" name="quantity" type="text" class="form-control" value="1" min="1">
                   <div class="input-group-append">
-                    <button type="button" class="btn btn-primary">
+                    <button id="plus" type="button" class="btn btn-primary">
                       <i class="fas fa-plus"></i>
                     </button>
                   </div>
                 </div>
               </div>
             <div class="col-4">
-              <button class="btn btn-primary w-100">
+              <button class="btn btn-primary w-100" name="action" value="cart">
                 <i class="fas fa-shopping-cart"></i>
-                Buy for <span class="price">{{detail.product.price}}</span>
+                  <span class="price">{{detail.product.price}}</span>
               </button>
             </div>
             <div class="col-4">
-              <button class="btn btn-primary w-100">
+              <button class="btn btn-primary w-100" name="action" value="wish">
                 <i class="fas fa-heart"></i>
               </button>
             </div>

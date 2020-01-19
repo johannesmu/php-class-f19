@@ -11,7 +11,7 @@ class ProductDetail extends Product {
   public function getDetail( $product_id ) {
     $query = "
     SELECT 
-    @pid := product_id,
+    @pid := product_id as product_id,
     name,
     description,
     price,
