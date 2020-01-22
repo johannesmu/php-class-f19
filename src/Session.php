@@ -6,7 +6,7 @@ class Session {
   // method to initialise session
   public static function init() {
     // check if session is initialised
-    if( session_status() == 'PHP_SESSION_NONE' ) {
+    if( session_status() == PHP_SESSION_NONE ) {
       session_start();
     }
   }
