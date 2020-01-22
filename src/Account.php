@@ -89,7 +89,7 @@ class Account extends Database {
   public function login( $email, $password ) {
     $errors = array();
     $response = array();
-
+   
     $query = "
     SELECT HEX( account_id ) as account_id, 
     email, 
@@ -128,7 +128,7 @@ class Account extends Database {
     }
 
     $account = $result -> fetch_assoc();
-    print_r( $account );
+    
     try {
       if ( password_verify( $password, $account['password']) == false ) {
         throw new Exception('credentials supplied do not match our records');
