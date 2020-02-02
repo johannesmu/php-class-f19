@@ -102,5 +102,6 @@ class WishList extends Database {
   public function getWishListItems() {
 
   }
+  
 }
 ?>
