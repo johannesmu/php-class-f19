@@ -98,10 +98,10 @@ class WishList extends Database {
       return $total_row['total'];
     }
   }
-
+  // get wishlist items
   public function getWishListItems() {
 
   }
-  
+
 }
 ?>
