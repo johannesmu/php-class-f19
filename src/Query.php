@@ -14,17 +14,19 @@ class Query extends Database {
   private $errors = array();
   private $data = array();
 
+
   public function __construct( $query_string ) {
     // construct the parent class (Database)
     parent::__construct();
     // store the query string
     $this -> query_string = $query_string;
-    $this -> query_type = $this -> detectQueryType();
+    $this -> query_type = $this -> detectQueryType( $this -> query_string );
   }
 
-  public function execute( Array $params ) {
-    // this function receives the parameters for the query
-    // check if the query type is known
+  // this function takes an array as parameter and is called to execute the query
+  public function execute( Array $params = array() ) {
+    
+    // check if the query type is known / allowed
     try {
       if ( $this -> query_type == false ) {
         throw new Exception('query type not recognised');
@@ -36,15 +38,15 @@ class Query extends Database {
     }
 
     try {
-      if ( $this -> matchParams( $params ) == false ) {
-        throw new Exception('query parameters do not match');
+      if ( $this -> verifyParams( $params ) == false ) {
+        throw new Exception('parameters supplied do not match query requirements');
       }
     }
     catch ( Exception $exc ) {
       $this -> errors['parameter'] = $exc -> getMessage();
       return $this -> respond( false);
     }
-    // $param_string = $this -> buildParamString( $params );
+
     try{
       $statement = $this -> connection -> prepare($this -> query_string);
       if ( !$statement ) {
@@ -58,7 +60,6 @@ class Query extends Database {
       if ( $statement -> execute() == false ) {
         throw new Exeption('query' . $this -> connection -> error );
       }
-
     }
     catch( Exception $exc ) {
       $this -> errors['number'] = $this -> connection -> errno;
@@ -70,11 +71,10 @@ class Query extends Database {
     while( $row = $result -> fetch_assoc() ) {
       array_push( $this -> data, $row );
     }
-
     return $this -> respond( true );
   }
 
-  public function detectQueryType() {
+  public function detectQueryType( String $string ) {
     // determine the query type eg select insert update or delete
     // trim spaces from beginning and end of query and convert to lowercase
     $lc_query = trim( strtolower( $this -> query_string ) );
@@ -92,7 +92,7 @@ class Query extends Database {
     }
   }
 
-  private function matchParams( Array $params ) {
+  private function verifyParams( Array $params ) {
     // this function matches the number of parameters to the number of ? in the query
     $slot_count = substr_count( $this -> query_string, '?' );
     $param_count = count( $params );
@@ -106,14 +106,18 @@ class Query extends Database {
       $this -> response['errors'] = $this -> errors;
       $this -> response['success'] = false;
     }
-    else {
+    elseif ( $success == true && isset($this -> data) ) {
       // return data
       $this -> response['data'] = $this -> data;
+      $this -> response['success'] = true;
+    }
+    else {
       $this -> response['success'] = true;
     }
     return $this -> response;
   }
 
+  // this function builds the parameter string for each of the parameter
   private function buildParamString( Array $params ) {
     $param_string = array();
     $count = count( $params );
@@ -136,7 +140,7 @@ class Query extends Database {
         }
       }
     }
-    // return the parameter string to the caller
+    // return the parameter as a string to the caller
     return implode( '', $param_string );
   }
 }
