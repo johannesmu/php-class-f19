@@ -135,6 +135,7 @@ class Query extends Database {
         }
       }
     }
+    // return the parameter string
     return implode( '', $param_string );
   }
 }
