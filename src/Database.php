@@ -11,16 +11,15 @@ class Database {
 
   protected function __construct() {
     $this -> host = getenv('host');
-    echo "host=" . getenv('host');
     $this -> user = getenv('user');
     $this -> password = getenv('password');
     $this -> database = getenv('database');
-    // $this -> connection = mysqli_connect(
-    //   $this -> host,
-    //   $this -> user,
-    //   $this -> password,
-    //   $this -> database
-    // );
+    $this -> connection = mysqli_connect(
+      $this -> host,
+      $this -> user,
+      $this -> password,
+      $this -> database
+    );
   }
 }
 ?>
