@@ -107,6 +107,7 @@ class Query extends Database {
       $this -> response['success'] = false;
     }
     else {
+      // return data
       $this -> response['data'] = $this -> data;
       $this -> response['success'] = true;
     }
@@ -135,7 +136,7 @@ class Query extends Database {
         }
       }
     }
-    // return the parameter string
+    // return the parameter string to the caller
     return implode( '', $param_string );
   }
 }
