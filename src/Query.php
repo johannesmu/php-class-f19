@@ -4,6 +4,7 @@ namespace oldspice;
 
 use oldspice\Database;
 use \Exception;
+use \Boolean;
 
 class Query extends Database {
   private $query_string;
