@@ -4,7 +4,6 @@ namespace oldspice;
 
 use oldspice\Database;
 use \Exception;
-use \Boolean;
 
 class Query extends Database {
   private $query_string;
@@ -100,7 +99,7 @@ class Query extends Database {
     return ($slot_count == $param_count) ? true : false;
   }
 
-  private function respond( Boolean $success ) {
+  private function respond( bool $success ) {
     // this function returns an array in the format of
     // [ 'success': Boolean, 'errors':[Array], 'data':[Array] ]
     if ( $success == false ) {
