@@ -1,9 +1,19 @@
+const minQuantity = 1;
+// to be updated when page loads
+let maxQuantity = 0;
+let currentQty = 0;
+let itemPrice = 0;
+
+function updateTotalPrice( qty, price ) {
+
+}
+
 $(document).ready( () => {
   // get the total avaible quantity
-  const maxQuantity = parseInt( $('#available').text() );
-  const minQuantity = 1;
+  maxQuantity = parseInt( $('#available').text() );
   const qtyField = $('#quantity');
-  let currentQty = $(qtyField).val();
+  currentQty = $(qtyField).val();
+  itemPrice = parseFloat( $('.price').text() );
   // add listeners to plus
   $('#plus').click( () => {
     if( currentQty < maxQuantity && currentQty >= minQuantity ) {
