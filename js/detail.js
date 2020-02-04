@@ -12,7 +12,7 @@ $(document).ready( () => {
     }
   })
   $('#minus').click( () => {
-    if( currentQty < maxQuantity && currentQty > minQuantity ) {
+    if( currentQty <= maxQuantity && currentQty > minQuantity ) {
       currentQty--;
       $(qtyField).val(currentQty);
     }
