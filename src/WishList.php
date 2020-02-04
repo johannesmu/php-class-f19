@@ -21,20 +21,19 @@ class WishList extends Database {
     else {
       $account_id = Session::get('auth');
       // see if the user already has a wishlist
+      // we run the query using the query class
       $query = "SELECT wishlist_id FROM wishlist WHERE account_id= UNHEX( ? )";
-      $statement = $this -> connection -> prepare( $query );
-      $statement -> bind_param('s', $account_id );
-      $statement -> execute();
-      $result = $statement -> get_result();
-      if( $result -> num_rows == 0 ) {
+      $query_class = new Query( $query );
+      $result = $query_class -> execute( array($account_id) );
+      print_r($result);
+      if( count($result['data']) == 0 ) {
         // the user does not have a wishlist in database
         // create a new wishlist
         $wishlist_id = $this -> createWishList( $account_id );
       }
       else {
         // the user has a wishlist in database
-        $row = $result -> fetch_assoc();
-        $wishlist_id = $row['wishlist_id'];
+        // $wishlist_id = $result['data'][0]
       }
       // insert the item into the wishlist_item table
       $add_query = "

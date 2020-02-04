@@ -3,6 +3,7 @@ require('vendor/autoload.php');
 
 use oldspice\ProductDetail;
 use oldspice\Navigation;
+use oldspice\WishList;
 
 $navigation = Navigation::getNavigation();
 
@@ -13,6 +14,12 @@ if( $_SERVER['REQUEST_METHOD'] == "GET" && isset($_GET['product_id']) ) {
 }
 else{
   $detail = '';
+}
+
+if( $_SERVER['REQUEST_METHOD'] == 'GET' && $_GET['action'] == 'wish' ) {
+  $product_id = $_GET['product_id'];
+  $wish = new WishList();
+  $add_wish = $wish -> addItem($product_id);
 }
 
 //Twig
