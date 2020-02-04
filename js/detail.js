@@ -7,6 +7,7 @@ $(document).ready( () => {
   $('#plus').click( () => {
     if( $(qtyField).val() <= maxQuantity && $(qtyField).val() >= minQuantity ) {
       $(qtyField).val() += $(qtyField).val();
+      
     }
   })
 })
