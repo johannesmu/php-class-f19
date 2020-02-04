@@ -3,11 +3,12 @@ $(document).ready( () => {
   const maxQuantity = parseInt( $('#available').text() );
   const minQuantity = 1;
   const qtyField = $('#quantity');
+  let currentQty = $(qtyField).val();
   // add listeners to plus
   $('#plus').click( () => {
-    if( $(qtyField).val() <= maxQuantity && $(qtyField).val() >= minQuantity ) {
-      $(qtyField).val() =+ $(qtyField).val();
-
+    if( currentQty <= maxQuantity && currentQty >= minQuantity ) {
+      currentQty++;
+      $(qtyField).val(currentQty);
     }
   })
 })
