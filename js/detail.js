@@ -6,8 +6,8 @@ $(document).ready( () => {
   // add listeners to plus
   $('#plus').click( () => {
     if( $(qtyField).val() <= maxQuantity && $(qtyField).val() >= minQuantity ) {
-      $(qtyField).val() += $(qtyField).val();
-      
+      $(qtyField).val() =+ $(qtyField).val();
+
     }
   })
 })
