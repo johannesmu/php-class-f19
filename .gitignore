@@ -1,5 +1,5 @@
 .htaccess
 vendor/
 node_modules/
-test.php
+# test.php
 composer.phar

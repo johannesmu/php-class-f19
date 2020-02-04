@@ -4,6 +4,7 @@ namespace oldspice;
 
 use oldspice\Database;
 use oldspice\Session;
+use oldspice\Query;
 use \Exception;
 
 class WishList extends Database {
@@ -70,7 +71,6 @@ class WishList extends Database {
     $statement -> execute();
     // return the wishlist id
     return $this -> connection -> insert_id;
-
   }
 
   public function getWishListTotal() {
