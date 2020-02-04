@@ -55,7 +55,7 @@ class Query extends Database {
       if ( count($params) > 0 ) {
         // build the parameter string, eg iii
         $param_string = $this -> buildParamString( $params );
-        $statement -> bind_param( $param_string, ...$param );
+        $statement -> bind_param( $param_string, ...$params );
       }
       if ( $statement -> execute() == false ) {
         throw new Exception('query' . $this -> connection -> error );
