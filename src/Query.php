@@ -58,7 +58,7 @@ class Query extends Database {
         $statement -> bind_param( $param_string, ...$param );
       }
       if ( $statement -> execute() == false ) {
-        throw new Exeption('query' . $this -> connection -> error );
+        throw new Exception('query' . $this -> connection -> error );
       }
     }
     catch( Exception $exc ) {
