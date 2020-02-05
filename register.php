@@ -11,6 +11,11 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 
   $acc = new Account();
   $register = $acc -> register($email,$password);
+  // if register is successful
+  if ( $register['success'] ) {
+    // redirect to home
+    header('location: /');
+  }
 }
 else{
   $register = '';
