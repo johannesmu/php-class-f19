@@ -25,7 +25,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action']) ) {
     $add_wish = $wish -> addItem($product_id);
   }
   elseif ( $_GET['action'] == 'cart' ) {
-
+    echo "cart";
   }
 }
 
