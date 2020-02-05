@@ -10,7 +10,12 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 
   $acc = new Account();
   $login = $acc -> login($email,$password);
-  print_r($login);
+
+  // if login is successful
+  if ( $login['success'] ) {
+    // redirect to home
+    header('location: /');
+  }
 }
 else{
   $login = '';
