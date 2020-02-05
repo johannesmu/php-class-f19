@@ -119,6 +119,7 @@ class WishList extends Database {
       ";
       $q = new Query( $wish_item_query );
       $params = array( $account_id );
+      echo $account_id;
       $result = $q -> execute( $params );
       print_r($result);
       return $result['data'];
