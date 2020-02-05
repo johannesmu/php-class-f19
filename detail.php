@@ -16,13 +16,20 @@ else{
   $detail = '';
 }
 
-if( $_SERVER['REQUEST_METHOD'] == 'GET' && $_GET['action'] == 'wish' ) {
+if( $_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action']) ) {
+  // get product_id from request
   $product_id = $_GET['product_id'];
-  $wish = new WishList();
-  $add_wish = $wish -> addItem($product_id);
+  // if action is 'wish'
+  if ( $_GET['action'] == 'wish' ) {
+    $wish = new WishList();
+    $add_wish = $wish -> addItem($product_id);
+  }
+  elseif ( $_GET['action'] == 'cart' ) {
+
+  }
 }
 
-print_r($_SESSION);
+
 //Twig
 $loader = new Twig_Loader_Filesystem('templates');
 $twig = new Twig_Environment( $loader );
