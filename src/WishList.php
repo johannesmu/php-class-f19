@@ -92,6 +92,7 @@ class WishList extends Database {
       $q = new Query( $wish_query );
       $params = array($account_id);
       $result = $q -> execute( $params );
+      print_r($result);
       $total = $result['data'][0]['total'];
       return $total;
     }
