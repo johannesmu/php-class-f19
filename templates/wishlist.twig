@@ -6,7 +6,19 @@
     <div class="container-fluid">
     {% for item in wish_items %}
       <div class="row">
-        <h3>{{ item.name }}</h3>
+        <h4{{ item.name }}</h4>
+      </div>
+      <div class="row">
+        <div class="col">
+            <img src="images/products/{{item.image}}" class="img-fluid">
+        </div>
+        <div class="col">
+            <p class="price">{{item.price}}</p>
+            <p class="quantity text-success">{{item.quantity}} available </p>
+        </div>
+        <div class="col">
+        
+        </div>
       </div>
     {% endfor %}
     </div>

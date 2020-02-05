@@ -115,12 +115,13 @@ class WishList extends Database {
       FROM wishlist_item
       INNER JOIN product
       ON product.product_id = wishlist_item.product_id 
-	WHERE wishlist_item.wishlist_id = ( SELECT wishlist_id FROM wishlist WHERE wishlist.account_id = UNHEX(?) )
+	    WHERE wishlist_item.wishlist_id = ( 
+        SELECT wishlist_id FROM wishlist WHERE wishlist.account_id = UNHEX(?) 
+      )
       ";
       $q = new Query( $wish_item_query );
       $params = array( $account_id );
       $result = $q -> execute( $params );
-      print_r($result);
       return $result['data'];
     }
   }
