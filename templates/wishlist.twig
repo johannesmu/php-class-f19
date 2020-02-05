@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+  {% include 'partials/head.twig' %}
+  <body>
+    {% include 'partials/navigation.twig' %}
+    <div class="container-fluid">
+    {% for item in wishlist_items %}
+      <div class="row">
+        <h3>{{ item.name }}</h3>
+      </div>
+    {% endfor %}
+    </div>
+    {% include 'partials/footer.twig' %}
+  </body>
+</html>

@@ -6,7 +6,6 @@ use oldspice\Product;
 use oldspice\Category;
 use oldspice\WishList;
 
-print_r($_SESSION);
 
 $navigation = Navigation::getNavigation();
 
