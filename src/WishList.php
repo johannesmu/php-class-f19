@@ -25,13 +25,14 @@ class WishList extends Database {
       $query = "SELECT wishlist_id FROM wishlist WHERE account_id= UNHEX( ? )";
       $query_class = new Query( $query );
       $result = $query_class -> execute( array($account_id) );
-      print_r($result);
+      
       if( count($result['data']) == 0 ) {
         // the user does not have a wishlist in database
         // create a new wishlist
         $wishlist_id = $this -> createWishList( $account_id );
       }
       else {
+        print_r( $result );
         // the user has a wishlist in database
         // $wishlist_id = $result['data'][0]
       }
