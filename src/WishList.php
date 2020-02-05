@@ -110,12 +110,12 @@ class WishList extends Database {
       product.name,
       product.price,
       ( SELECT @IMG_ID := image_id FROM product_image WHERE product_id = @PID LIMIT 1) as image_id,
-      ( SELECT image_file_name FROM image WHERE image_id = @IMG_ID LIMIT 1) as image,
-      ( SELECT quantity FROM product_quantity WHERE product_id = @PID LIMIT 1) as quantity
+      ( SELECT image_file_name FROM image WHERE image_id = @IMG_ID) as image,
+      ( SELECT quantity FROM product_quantity WHERE product_id = @PID) as quantity
       FROM wishlist_item
       INNER JOIN product
-      ON product.product_id = wishlist_item.product_id
-      WHERE wishlist_item.wishlist_id = (SELECT wishlist_id FROM wishlist WHERE account_id=UNHEX(?)
+      ON product.product_id = wishlist_item.product_id 
+	WHERE wishlist_item.wishlist_id = ( SELECT wishlist_id FROM wishlist WHERE wishlist.account_id = UNHEX(?) )
       ";
       $q = new Query( $wish_item_query );
       $params = array( $account_id );
