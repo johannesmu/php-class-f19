@@ -84,13 +84,18 @@ class WishList extends Database {
       $q = new Query( $wish_query );
       $params = array($account_id);
       $result = $q -> execute( $params );
-      $wishlist_id = $result['data'][0]['wishlist_id'];
-      // get the user's total items in wishlist
-      $items_query = "SELECT COUNT(product_id) AS total FROM wishlist_item WHERE wishlist_id= ? ";
-      $wq = new Query( $items_query );
-      $wishlist_params = array($wishlist_id);
-      $result = $wq -> execute( $wishlist_params );
-      $total = $result['data'][0]['total'];
+      if ( isset($result['data']) ) {
+        $wishlist_id = $result['data'][0]['wishlist_id'];
+        // get the user's total items in wishlist
+        $items_query = "SELECT COUNT(product_id) AS total FROM wishlist_item WHERE wishlist_id= ? ";
+        $wq = new Query( $items_query );
+        $wishlist_params = array($wishlist_id);
+        $result = $wq -> execute( $wishlist_params );
+        $total = $result['data'][0]['total'];
+      }
+      else {
+        $total = 0;
+      }
       return $total;
     }
   }
