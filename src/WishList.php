@@ -79,29 +79,26 @@ class WishList extends Database {
     else{
       // get user's account id
       $account_id = Session::get('auth');
-      // get the user's wishlist_id
-      $wish_query = "SELECT wishlist_id FROM wishlist WHERE account_id = UNHEX(?) ";
+      // get the items belonging to the user
+      $wish_query = "
+      SELECT COUNT(product_id) as total 
+      FROM wishlist_item
+      WHERE 
+      wishlist_id = (
+        SELECT wishlist_id 
+        FROM wishlist 
+        WHERE account_id=UNHEX(?) 
+      )";
       $q = new Query( $wish_query );
       $params = array($account_id);
       $result = $q -> execute( $params );
-      if ( isset($result['data']) ) {
-        $wishlist_id = $result['data'][0]['wishlist_id'];
-        // get the user's total items in wishlist
-        $items_query = "SELECT COUNT(product_id) AS total FROM wishlist_item WHERE wishlist_id= ? ";
-        $wq = new Query( $items_query );
-        $wishlist_params = array($wishlist_id);
-        $result = $wq -> execute( $wishlist_params );
-        $total = $result['data'][0]['total'];
-      }
-      else {
-        $total = 0;
-      }
+      $total = $result['data'][0]['total'];
       return $total;
     }
   }
   // get wishlist items
   public function getWishListItems() {
-
+    
   }
 
 }
