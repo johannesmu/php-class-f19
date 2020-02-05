@@ -22,6 +22,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'GET' && $_GET['action'] == 'wish' ) {
   $add_wish = $wish -> addItem($product_id);
 }
 
+print_r($_SESSION);
 //Twig
 $loader = new Twig_Loader_Filesystem('templates');
 $twig = new Twig_Environment( $loader );

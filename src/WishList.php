@@ -32,9 +32,8 @@ class WishList extends Database {
         $wishlist_id = $this -> createWishList( $account_id );
       }
       else {
-        print_r( $result );
         // the user has a wishlist in database
-        // $wishlist_id = $result['data'][0]
+        $wishlist_id = $result['data'];
       }
       // insert the item into the wishlist_item table
       $add_query = "

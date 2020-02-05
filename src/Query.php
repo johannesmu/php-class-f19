@@ -16,7 +16,7 @@ class Query extends Database {
 
 
   public function __construct( $query_string ) {
-    // construct the parent class (Database)
+    // construct the parent class (Database) to create $this -> connection
     parent::__construct();
     // store the query string
     $this -> query_string = $query_string;
@@ -66,8 +66,9 @@ class Query extends Database {
       $this -> errors['execution'] = $exc -> getMessage();
       return $this -> respond( false);
     }
-
+    // get the result
     $result = $statement -> get_result();
+    // add result to $this -> data
     while( $row = $result -> fetch_assoc() ) {
       array_push( $this -> data, $row );
     }
@@ -106,14 +107,18 @@ class Query extends Database {
       $this -> response['errors'] = $this -> errors;
       $this -> response['success'] = false;
     }
-    elseif ( $success == true && isset($this -> data) ) {
-      // return data
-      $this -> response['data'] = $this -> data;
+    elseif ( $success == true  ) {
+      // return data if there is data eg from SELECT
+      if ( isset($this -> data) ) {
+        $this -> response['data'] = $this -> data;
+      }
+      // if inserting, return the id of inserted record
+      if ( $this -> query_type == 'insert' ) {
+        $this -> response['insert_id'] = $this -> connection -> insert_id;
+      }
       $this -> response['success'] = true;
     }
-    else {
-      $this -> response['success'] = true;
-    }
+    
     return $this -> response;
   }
 
