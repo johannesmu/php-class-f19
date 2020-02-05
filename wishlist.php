@@ -19,9 +19,7 @@ $template = $twig -> load( 'wishlist.twig' );
 echo $template -> render([
   'wish_total' => $wish_total,
   'wish_items' => $wish_items,
-  'categories' => $categories,
   'navigation' => $navigation,
-  'products' => $products,
   'title' => 'Home Page'
 ]);
 ?>

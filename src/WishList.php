@@ -104,15 +104,14 @@ class WishList extends Database {
     else {
       // get user's account id
       $account_id = Session::get('auth');
-      echo $account_id;
       // we get all the wishlist items, prices, images and quantity
       $wish_item_query = "
       SELECT @PID := wishlist_item.product_id AS product_id,
       product.name,
       product.price,
       ( SELECT @IMG_ID := image_id FROM product_image WHERE product_id = @PID LIMIT 1) as image_id,
-      ( SELECT image_file_name FROM image WHERE image_id = @IMG_ID ) as image,
-      ( SELECT quantity FROM product_quantity WHERE product_id = @PID ) as quantity
+      ( SELECT image_file_name FROM image WHERE image_id = @IMG_ID LIMIT 1) as image,
+      ( SELECT quantity FROM product_quantity WHERE product_id = @PID LIMIT 1) as quantity
       FROM wishlist_item
       INNER JOIN product
       ON product.product_id = wishlist_item.product_id
