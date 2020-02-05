@@ -9,7 +9,6 @@ $navigation = Navigation::getNavigation();
 $wish = new WishList();
 $wish_total = $wish -> getWishListTotal();
 $wish_items = $wish -> getWishListItems();
-print_r( $wish_items);
 
 //Twig
 $loader = new Twig_Loader_Filesystem('templates');
