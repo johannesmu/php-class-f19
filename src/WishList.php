@@ -25,7 +25,7 @@ class WishList extends Database {
       $query = "SELECT wishlist_id FROM wishlist WHERE account_id= UNHEX( ? )";
       $query_class = new Query( $query );
       $result = $query_class -> execute( array($account_id) );
-      
+
       if( count($result['data']) == 0 ) {
         // the user does not have a wishlist in database
         // create a new wishlist
@@ -77,24 +77,21 @@ class WishList extends Database {
       return false;
     }
     else{
-      $query = "SELECT COUNT(product_id) AS total FROM wishlist_item WHERE wishlist_id= ? ";
+      // get user's account id
       $account_id = Session::get('auth');
       // get the user's wishlist_id
-      $wish_query = "SELECT wishlist_id FROM wishlist WHERE account_id = HEX(?) ";
-      $statement = $this -> connection -> prepare( $wish_query );
-      $statement -> bind_param('s', $account_id );
-      $statement -> execute();
-      $result = $statement -> get_result();
-      $row = $result -> fetch_assoc();
-      $wishlist_id = $row['wishlist_id'];
-
-      // run query to get total
-      $statement = $this -> connection -> prepare( $query );
-      $statement -> bind_param('i', $wishlist_id );
-      $statement -> execute();
-      $result = $statement -> get_result();
-      $total_row = $result -> fetch_assoc();
-      return $total_row['total'];
+      $wish_query = "SELECT wishlist_id FROM wishlist WHERE account_id = UNHEX(?) ";
+      $q = new Query( $wish_query );
+      $params = array($account_id);
+      $result = $q -> execute( $params );
+      $wishlist_id = $result['data'][0]['wishlist_id'];
+      // get the user's total items in wishlist
+      $items_query = "SELECT COUNT(product_id) AS total FROM wishlist_item WHERE wishlist_id= ? ";
+      $wq = new Query( $items_query );
+      $wishlist_params = array($wishlist_id);
+      $result = $wq -> execute( $wishlist_params );
+      $total = $result['data'][0]['total'];
+      return $total;
     }
   }
   // get wishlist items

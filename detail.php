@@ -16,18 +16,22 @@ else{
   $detail = '';
 }
 
+$wish = new WishList();
+
 if( $_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action']) ) {
   // get product_id from request
   $product_id = $_GET['product_id'];
   // if action is 'wish'
   if ( $_GET['action'] == 'wish' ) {
-    $wish = new WishList();
     $add_wish = $wish -> addItem($product_id);
   }
   elseif ( $_GET['action'] == 'cart' ) {
-    echo "cart";
+    
   }
 }
+
+//get the total from wishlist
+$wish_total = $wish -> getWishListTotal();
 
 
 //Twig
@@ -37,6 +41,7 @@ $twig = new Twig_Environment( $loader );
 $template = $twig -> load( 'detail.twig' );
 //output the template to page
 echo $template -> render([
+  'wish_total' => $wish_total,
   'navigation' => $navigation,
   'detail' => $detail,
   'title' => 'Detail for ' . $detail['product']['name']
