@@ -19,8 +19,9 @@
         <div class="col-3">
           <form method="get" action="wishlist.php">
             <input type="hidden" name="product_id" value="{{item.product_id}}">
-            <button type="submit" name="action" value="delete">
+            <button type="submit" name="action" value="delete" class="btn btn-primary">
               <i class="fas fa-trash-alt"></i>
+              <span class="sr-only">Delete Item</span>
             </button>
           </form>
         </div>
