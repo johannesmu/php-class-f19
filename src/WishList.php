@@ -106,7 +106,8 @@ class WishList extends Database {
       $account_id = Session::get('auth');
       // we get all the wishlist items, prices, images and quantity
       $wish_item_query = "
-      SELECT @PID := wishlist_item.product_id AS product_id,
+      SELECT wishlist_item_id,
+      @PID := wishlist_item.product_id AS product_id,
       product.name,
       product.price,
       ( SELECT @IMG_ID := image_id FROM product_image WHERE product_id = @PID LIMIT 1) as image_id,
@@ -125,6 +126,23 @@ class WishList extends Database {
       return $result['data'];
     }
   }
+  
+  public function deleteItem( $item_id ) {
+    $account_id = Session::get('auth');
+    $query = "
+    DELETE FROM wishlist_item 
+    WHERE product_id = ?
+    AND wishlist_id = (
+      SELECT wishlist_id 
+      FROM wishlist 
+      WHERE account_id=UNHEX(?) 
+    ) 
+    ";
 
+    $q = new Query( $query );
+    $params = array( $item_id, $account_id );
+    $result = $q -> execute( $params );
+    return $result['success'];
+  }
 }
 ?>

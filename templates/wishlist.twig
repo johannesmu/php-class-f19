@@ -3,21 +3,23 @@
   {% include 'partials/head.twig' %}
   <body>
     {% include 'partials/navigation.twig' %}
-    <div class="container-fluid">
+    <div class="container main-container">
     {% for item in wish_items %}
       <div class="row">
         <h4>{{item.name}}</h4>
       </div>
       <div class="row">
-        <div class="col">
-            <img src="images/products/{{item.image}}" class="img-fluid">
+        <div class="col-3">
+          <img src="images/products/{{item.image}}" class="img-fluid">
         </div>
-        <div class="col">
-            <p class="price">{{item.price}}</p>
-            <p class="quantity text-success">{{item.quantity}} available </p>
+        <div class="col-6">
+          <p class="price">{{item.price}}</p>
+          <p class="quantity text-success">{{item.quantity}} available </p>
         </div>
-        <div class="col">
-        
+        <div class="col-3">
+          <form method="get" action="wishlist.php">
+
+          </form>
         </div>
       </div>
     {% endfor %}
