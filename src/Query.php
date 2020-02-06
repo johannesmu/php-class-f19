@@ -68,7 +68,7 @@ class Query extends Database {
       return $this -> respond( false);
     }
     // get the result if the query is select
-    echo $this -> query_type;
+    
     if ( $this -> query_type == 'select' ) {
       $result = $statement -> get_result();
       // add result to $this -> data
