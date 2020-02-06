@@ -14,7 +14,8 @@
         </div>
         <div class="col-6">
           <p class="price">{{item.price}}</p>
-          <p class="quantity text-success">{{item.quantity}} available </p>
+          {% set available_class = (item.quantity > 0) ? 'text-success' : 'text-danger' %}
+          <p class="quantity {{available_class}}">{{item.quantity}} available </p>
         </div>
         <div class="col-3">
           <form method="get" action="wishlist.php">
