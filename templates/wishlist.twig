@@ -4,6 +4,7 @@
   <body>
     {% include 'partials/navigation.twig' %}
     <div class="container main-container mt-4">
+      <h3>Your wishlist</h4>
     {% for item in wish_items %}
       <div class="row">
         <div class="col-3">
@@ -22,8 +23,9 @@
               <i class="fas fa-trash-alt"></i>
               <span class="sr-only">Delete Item</span>
             </button>
+            <a class="btn btn-primary" href="/detail.php?product_id={{item.product_id}}">detail</a>
           </form>
-          <a class="btn btn-primary stretched-link" href="/detail.php?product_id={{item.product_id}}">detail</a>
+          
         </div>
       </div>
       <hr>
