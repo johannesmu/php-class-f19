@@ -6,16 +6,16 @@
     <div class="container main-container mt-4">
     {% for item in wish_items %}
       <div class="row">
-        <div class="col-2">
+        <div class="col-3">
           <img src="images/products/{{item.image}}" class="img-fluid">
         </div>
         <div class="col-6">
-          <h4 class="col text-capitalize">{{item.name}}</h4>
+          <h4 class="text-capitalize">{{item.name}}</h4>
           <p class="price">{{item.price}}</p>
           {% set available_class = (item.quantity > 0) ? 'text-success' : 'text-danger' %}
           <p class="quantity {{available_class}}">{{item.quantity}} available </p>
         </div>
-        <div class="col-4 d-flex justify-content-end">
+        <div class="col-3 d-flex justify-content-end">
           <form method="get" action="wishlist.php">
             <input type="hidden" name="product_id" value="{{item.product_id}}">
             <button type="submit" name="action" value="delete" class="btn btn-primary">
