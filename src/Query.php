@@ -24,6 +24,7 @@ class Query extends Database {
   }
 
   // this function takes an array as parameter and is called to execute the query
+
   public function execute( Array $params = array() ) {
     
     // check if the query type is known / allowed
@@ -66,11 +67,13 @@ class Query extends Database {
       $this -> errors['execution'] = $exc -> getMessage();
       return $this -> respond( false);
     }
-    // get the result
-    $result = $statement -> get_result();
-    // add result to $this -> data
-    while( $row = $result -> fetch_assoc() ) {
-      array_push( $this -> data, $row );
+    // get the result if the query is select
+    if ( $this -> query_type == 'select' ) {
+      $result = $statement -> get_result();
+      // add result to $this -> data
+      while( $row = $result -> fetch_assoc() ) {
+        array_push( $this -> data, $row );
+      }
     }
     return $this -> respond( true );
   }
