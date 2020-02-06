@@ -30,6 +30,9 @@
       </div>
       <hr>
     {% endfor %}
+    {% if wish_items | length == 0 %}
+      <h2 class="text-muted">Wow! your shopping list is empty!</h2>
+    {% endif %}
     </div>
     {% include 'partials/footer.twig' %}
   </body>
