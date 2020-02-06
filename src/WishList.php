@@ -126,7 +126,7 @@ class WishList extends Database {
       return $result['data'];
     }
   }
-  
+
   public function deleteItem( $item_id ) {
     $account_id = Session::get('auth');
     $query = "
